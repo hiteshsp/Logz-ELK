@@ -1,0 +1,5 @@
+docker run --user esuser --name es -d -v /path/to/data/:/home/esuser/data es_image
+docker run -d --name logstash --link es:es logstash_image
+docker run --name kibana --link es:es -d -p 5601:5601 --link es:es kibana_image
+docker run -d -p 8080:80 --link logstash:logstash -v /path/to/the/nginx/log:/var/log/nginx -v /path/to/syslog:/var/log/syslog nginx_image
+docker run -d -p 8081:80 --link logstash:logstash -v /path/to/the/nginx/log:/var/log/nginx -v /path/to/syslog:/var/log/syslog nginx_image
